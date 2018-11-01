@@ -1,5 +1,10 @@
 .vscode/
 
+# ignore the results of the compilation process
 *.o
 *.so
 *.out
+
+# ignore the Catch testing library (it will be downloaded every time the test
+# suite is compiled)
+tests/catch.hpp

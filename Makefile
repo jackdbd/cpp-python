@@ -6,23 +6,21 @@ CXX = g++
 CXX_FLAGS = -pipe -fPIC -O2 -Wall -W
 LINKER_FLAGS = -shared -Wl,--verbose
 
-# I can't understand why I need to declare the shared library as a make
-# sourcefile. If I don't include it, this recipe is skipped.
-$(APP): Bitmap.o main.o $(SHARED_LIBRARY)
+CATCH_URL:=https://raw.githubusercontent.com/catchorg/Catch2/master/single_include/catch2/catch.hpp
+
+# This seems to work, but prevents the recipe that builds app.out from being
+# executed. Why is that?
+# $(SHARED_LIBRARY): src/Bitmap.cpp
+# 	@echo 'Compile and link $< to shared library $(SHARED_LIBRARY)'
+# 	$(CXX) src/Bitmap.cpp -shared -fPIC --verbose -o $(SHARED_LIBRARY)
+
+$(APP): Bitmap.o main.o
+	@echo 'Link object files $^ to assembler output $(APP)'
 	$(CXX) Bitmap.o main.o -o $(APP)
 
-$(SHARED_LIBRARY): Bitmap.o
-	$(CXX) $(LINKER_FLAGS) Bitmap.o -o $(SHARED_LIBRARY)
-
-Bitmap.o: src/Bitmap.cpp
-	$(CXX) -c $(CXX_FLAGS) src/Bitmap.cpp
-
-main.o: src/main.cpp
-	$(CXX) -c $(CXXFLAGS) src/main.cpp
-
-# I can't understand why, but this pattern rule is not recognized
-# %.o: %.cpp
-# 	$(CXX) -c $(CXXFLAGS) $< -o $@
+%.o: src/%.cpp
+	@echo 'Compile src file $< to object file $@'
+	$(CXX) -c $(CXXFLAGS) $<
 
 .PHONY: help
 help:
@@ -31,7 +29,7 @@ help:
 	@echo '          activated python virtual environment.'
 	@echo 'clean   - Clean compilation output (.o, .so, .out).'
 	@echo 'format  - Format C++ code with clang-format.'
-	@echo 'test    - Run tests for the C++ library.'
+	@echo 'test    - Test the C++ library with Catch.'
 	@echo 'run     - Run the app and display the bitmap with ImageMagick.'
 	@echo ''
 	@echo 'You are here: ${HERE}'
@@ -43,23 +41,33 @@ help:
 
 .PHONY: clean
 clean:
-	rm Bitmap.o
-	rm main.o
-	rm ${SHARED_LIBRARY}
-	rm ${APP}
-	rm test.bmp
+	@echo 'clean   - Clean compilation output (.o, .so, .out).'
+	rm --force Bitmap.o
+	rm --force main.o
+	rm --force ${SHARED_LIBRARY}
+	rm --force ${APP}
+	rm --force test.bmp
+	rm --force TestBitmap.o
+	rm --force test_suite.out
 
 .PHONY: format
 format:
+	@echo 'format  - Format C++ code with clang-format.'
 	clang-format -i -style=Google -verbose src/*.cpp
 	clang-format -i -style=Google -verbose src/*.hpp
+	clang-format -i -style=Google -verbose tests/*.cpp
 
 .PHONY: run
 run:
-	@echo 'Run the app and display the generated bitmap.'
+	@echo 'run     - Run the app and display the bitmap with ImageMagick.'
 	./$(APP)
 	display test.bmp
 
 .PHONY: test
 test:
-	@echo TODO: test C++ library
+	@echo 'test    - Test the C++ library with Catch.'
+	@echo 'Download Catch single header file'
+	wget -O tests/catch.hpp $(CATCH_URL)
+	$(CXX) -c tests/TestBitmap.cpp
+	$(CXX) TestBitmap.o -o test_suite.out
+	./test_suite.out

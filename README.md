@@ -21,3 +21,11 @@ Use [clang-format](https://clang.llvm.org/docs/ClangFormat.html) for code format
 ```sh
 make format
 ```
+
+## C++ tests
+
+Use [Catch](https://github.com/catchorg/Catch2) for unit tests.
+
+```sh
+make test
+```
