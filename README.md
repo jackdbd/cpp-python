@@ -1,4 +1,5 @@
 # cpp-python
+[![Build Status](https://travis-ci.org/jackdbd/cpp-python.svg?branch=master)](https://travis-ci.org/jackdbd/cpp-python)
 
 Example of a C++ library used in Python as a C++ extension module.
 
