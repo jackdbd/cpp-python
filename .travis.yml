@@ -10,9 +10,10 @@ before_install:
 install:
   - sudo add-apt-repository ppa:ubuntu-toolchain-r/test --yes
   - sudo apt-get update -qq
-  - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-7; fi
+  - sudo apt-get install g++-6 --yes
 before_script:
   - $CXX --version
+  - g++ --version
 script:
   - make
   - make test
