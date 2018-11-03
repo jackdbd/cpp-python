@@ -1,0 +1,30 @@
+language: cpp
+sudo: required
+dist: trusty
+compiler:
+ - g++
+os:
+ - linux
+matrix:
+  include:
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+      env:
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+before_install:
+  - echo $LANG
+  - echo $LC_ALL
+  - sudo apt-get update -qq
+  - eval "${MATRIX_EVAL}"
+script:
+  - make
+  - make test
+notifications:
+    email:
+        on_success: change
+        on_failure: always
