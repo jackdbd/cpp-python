@@ -8,7 +8,7 @@ compiler:
 before_install:
   - echo $LANG
 install:
-  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test --yes
   - sudo apt-get update -qq
   - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-7; fi
 before_script:
