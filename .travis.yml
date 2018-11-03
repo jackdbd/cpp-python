@@ -1,20 +1,31 @@
 language: cpp
-sudo: required
-os:
- - linux
-dist: trusty
-compiler:
- - g++
+matrix:
+  include:
+    # works on Precise and Trusty
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-6
+      env:
+        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6"
+    # works on Precise and Trusty
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+      env:
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
 before_install:
   - echo $LANG
-install:
-  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test --yes
-  - sudo apt-get update -qq
-  - sudo apt-get install g++-7 --yes
-  - if [ "$CXX" = "g++" ]; then export CXX="g++-7.3"; fi
+  - eval "${MATRIX_EVAL}" 
 script:
   - $CXX --version
-  - g++ --version
   - make
   - make test
 after_success:
