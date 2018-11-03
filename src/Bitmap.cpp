@@ -6,10 +6,19 @@
 namespace mybitmapnamespace {
 
 /**
- * Constructor for the bitmap image.
+ * @brief Constructor for the bitmap image.
  *
+ * Detailed explanation here.
+ * @verbatim
+ * like this
+ * @endverbatim
+ *
+ * @code
+ * mybitmapnamespace::Bitmap bitmap(width, height);
+ * @endcode
  * @param width is the image width
  * @param height is the image height
+ *
  */
 Bitmap::Bitmap(int width, int height)
     : m_width(width),

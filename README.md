@@ -29,3 +29,15 @@ Use [Catch](https://github.com/catchorg/Catch2) for unit tests.
 ```sh
 make test
 ```
+
+## Project documentation
+
+Use [Doxygen](https://github.com/doxygen/doxygen) to genrarate the HTML documentation.
+
+```sh
+make docs
+cd docs/html
+python -m http.server
+# or
+google-chrome index.html
+```

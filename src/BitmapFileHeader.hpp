@@ -8,12 +8,13 @@ namespace mybitmapnamespace {
 #pragma pack(push, 2)
 
 /**
- * Bitmap file header.
+ * @brief Bitmap file header.
  *
  * The Bitmap file header is a block of bytes at the start of the file and it
- * is used to identify the file.
- * http://www.daubnet.com/en/file-format-bmp
- * https://en.wikipedia.org/wiki/BMP_file_format#Bitmap_file_header
+ * is used to identify the file. @verbatim like this @endverbatim
+ *
+ * @see http://www.daubnet.com/en/file-format-bmp
+ * @see https://en.wikipedia.org/wiki/BMP_file_format#Bitmap_file_header
  *
  */
 struct BitmapFileHeader {

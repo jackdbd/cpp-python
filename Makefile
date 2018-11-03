@@ -30,6 +30,7 @@ help:
 	@echo 'clean   - Clean compilation output (.o, .so, .out).'
 	@echo 'format  - Format C++ code with clang-format.'
 	@echo 'test    - Test the C++ library with Catch.'
+	@echo 'docs    - Create documentation with Doxygen.'
 	@echo 'run     - Run the app and display the bitmap with ImageMagick.'
 	@echo ''
 	@echo 'You are here: ${HERE}'
@@ -71,3 +72,7 @@ test:
 	$(CXX) -c tests/TestBitmap.cpp
 	$(CXX) TestBitmap.o -o test_suite.out
 	./test_suite.out
+
+.PHONY: docs
+docs:
+	doxygen docs/Doxyfile

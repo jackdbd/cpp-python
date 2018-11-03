@@ -8,11 +8,13 @@ namespace mybitmapnamespace {
 #pragma pack(push, 2)
 
 /**
- * Bitmap info header.
+ * @brief Bitmap info header.
  *
  * This block of bytes tells the application detailed information about the
  * image, which will be used to display the image on the screen.
- * https://msdn.microsoft.com/en-us/library/Dd183376(v=VS.85).aspx
+ *
+ * @see https://msdn.microsoft.com/en-us/library/Dd183376(v=VS.85).aspx
+ * @see
  * https://en.wikipedia.org/wiki/BMP_file_format#DIB_header_(bitmap_information_header)
  */
 struct BitmapInfoHeader {
