@@ -53,9 +53,9 @@ clean:
 .PHONY: format
 format:
 	@echo 'format  - Format C++ code with clang-format.'
-	clang-format -i -style=Google -verbose src/*.cpp
-	clang-format -i -style=Google -verbose src/*.hpp
-	clang-format -i -style=Google -verbose tests/*.cpp
+	clang-format -i -style=file -verbose src/*.cpp
+	clang-format -i -style=file -verbose src/*.hpp
+	clang-format -i -style=file -verbose tests/*.cpp
 
 .PHONY: run
 run:
