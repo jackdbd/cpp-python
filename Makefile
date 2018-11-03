@@ -2,7 +2,9 @@ HERE:=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 SHARED_LIBRARY:=bitmap.so
 APP:=app.out
 
-CXX = g++
+# Avoid hard-coding g++, pick the g++ version from the CXX environment variable.
+# This is useful when building the project with Travis CI.
+# CXX = g++
 CXX_FLAGS = -pipe -fPIC -O2 -Wall -W
 LINKER_FLAGS = -shared -Wl,--verbose
 
@@ -34,6 +36,7 @@ help:
 	@echo 'run     - Run the app and display the bitmap with ImageMagick.'
 	@echo ''
 	@echo 'You are here: ${HERE}'
+	@echo 'The project will be built with this compiler: $(CXX)'
 
 # .PHONY: install
 # install: $(SHARED_LIBRARY)
